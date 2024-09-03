@@ -61,7 +61,7 @@ This project provides a binary classification model for detecting cataracts in i
     ```bash
     curl -X POST -F "file=@Cataract_in_human_eye.png" http://127.0.0.1:5000/predict
     ```
-   - **Expected Output Example**:
+   - **Output**:
      ```json
      {"confidence":1.0,"has_cataract":true}
      ```
