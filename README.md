@@ -68,4 +68,6 @@ This project provides a binary classification model for detecting cataracts in i
 
 2. To test with a different image, place the image in the `cataract_app` folder and update the `curl` command with the new image name.
 
+3. If running the `curl` command from a different directory, provide the full path to the image.
+
 
