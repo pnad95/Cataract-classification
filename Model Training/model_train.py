@@ -1,3 +1,4 @@
+#importing libraries for model training
 import os
 import numpy as np
 from tensorflow.keras.applications import VGG16
@@ -8,12 +9,12 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 
-# Define the directory paths
+# Define the directory paths. Add processed images folder which contains data of cataract images
 base_dir = 'processed_images'
 train_dir = os.path.join(base_dir, 'train')
 test_dir = os.path.join(base_dir, 'test')
 
-# Initialize the ImageDataGenerator with enhanced data augmentation for training
+# Initialize the ImageDataGenerator with data augmentation for training
 train_datagen = ImageDataGenerator(
     rotation_range=20,
     width_shift_range=0.10,
@@ -44,10 +45,10 @@ test_generator = test_datagen.flow_from_directory(
     target_size=(224, 224),
     batch_size=batch_size,
     class_mode='binary',
-    shuffle=False  # Ensure test data is not shuffled
+    shuffle=False  
 )
 
-# Define the input shape
+# Input shape since VGG16 is used
 input_shape = (224, 224, 3)
 
 # Load the base model
@@ -57,7 +58,7 @@ base_model = VGG16(weights='imagenet', include_top=False, input_shape=input_shap
 for layer in base_model.layers:
     layer.trainable = False
 
-# Add custom layers on top of the base model
+# Add custom layers on top of the base model for the classification task of cataract images
 model = Sequential([
     base_model,
     Flatten(),
@@ -88,7 +89,7 @@ model.load_weights('best_model_v10.keras')
 for layer in base_model.layers[-4:]:
     layer.trainable = True
 
-# Recompile the model to apply changes
+# Train model on the data again to finetune last few layers
 model.compile(optimizer=Adam(learning_rate=0.0001), loss='binary_crossentropy', metrics=['accuracy'])
 
 # Continue training with fine-tuned layers
@@ -100,5 +101,9 @@ history_fine_tuning = model.fit(
 )
 
 # Save the final model (architecture + weights) in .keras format
-final_model_path = 'final_model.keras'
+final_model_dir = os.path.join('..', 'cataract_app') 
+if not os.path.exists(final_model_dir):
+    os.makedirs(final_model_dir)  
+
+final_model_path = os.path.join(final_model_dir, 'final_model.keras')
 model.save(final_model_path)
