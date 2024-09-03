@@ -6,7 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Flatten, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-from sklearn.metrics import classification_report, confusion_matrix, roc_curve, auc
+
 
 # Define the directory paths
 base_dir = 'processed_images'
@@ -100,5 +100,5 @@ history_fine_tuning = model.fit(
 )
 
 # Save the final model (architecture + weights) in .keras format
-final_model_path = 'final_model_v1.keras'
+final_model_path = 'final_model.keras'
 model.save(final_model_path)
