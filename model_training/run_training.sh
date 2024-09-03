@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Define paths
-REQUIREMENTS_DIR="../"  # Adjust this if requirements.txt is in a different directory
-TRAINING_SCRIPT_DIR="model_training"  # Adjust if your script is in a different directory
-TRAINING_SCRIPT="train_model.py"  # Adjust if your script has a different name
-VENV_DIR="venv"  # Directory name for virtual environment
+REQUIREMENTS_DIR="../"  
+TRAINING_SCRIPT_DIR="model_training"  
+TRAINING_SCRIPT="train_model.py"  
+VENV_DIR="venv" 
 
 # Navigate to the directory with requirements.txt and create a virtual environment
 cd "$REQUIREMENTS_DIR" || { echo "Directory not found: $REQUIREMENTS_DIR"; exit 1; }
@@ -29,8 +29,5 @@ python3 "$TRAINING_SCRIPT"
 
 # Deactivate the virtual environment
 deactivate
-
-# Optionally, clean up the virtual environment if you want to remove it
-# rm -rf "$VENV_DIR"
 
 echo "Training script executed successfully."
