@@ -9,7 +9,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 
 
-# Define the directory paths. Add processed images folder which contains data of cataract images
+# Defining the directory paths. Adding processed images folder which contains data of cataract images
 base_dir = 'processed_images'
 train_dir = os.path.join(base_dir, 'train')
 test_dir = os.path.join(base_dir, 'test')
